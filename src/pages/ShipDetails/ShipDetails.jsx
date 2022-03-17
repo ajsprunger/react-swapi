@@ -1,16 +1,9 @@
-import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getDetails } from '../../services/api-calls';
 import { Link } from 'react-router-dom'
 
 const ShipDetails = () => {
-  const [shipDetails, setShipDetails] = useState({})
   let location = useLocation()
-
-  useEffect(()=> {
-    getDetails(location.state.shipName.url)
-    .then(shipDetails => setShipDetails(shipDetails))
-  }, [])
+  let shipDetails = location.state.shipName
 
   return(
     <>
