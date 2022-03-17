@@ -11,14 +11,13 @@ const ShipList = (props) => {
     .then(shipData => setShips(shipData.results))
   }, [])
 
-  console.log('ships', ships)
-
   return (
     <>
+    <div className='ship-container'>
     {ships.length ?
       <div className='icon-container'>
         {ships.map((shipName) => (
-          <Link to='/ship' state={{shipName}} key={shipName.name}>
+          <Link className="link" to='/ship' state={{shipName}} key={shipName.name}>
             <div id='shipDiv'>
               {shipName.name}
             </div>
@@ -30,6 +29,7 @@ const ShipList = (props) => {
         <h2>Loading Ships...</h2>
       </div>
     } 
+    </div>
     </>
   )
 }
