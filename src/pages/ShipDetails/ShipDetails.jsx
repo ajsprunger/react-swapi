@@ -1,13 +1,21 @@
-import { useLocation } from 'react-router-dom';
-import { Link } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import getPilots from '../PilotList/PilotList';
 
+
 const ShipDetails = () => {
+  const [names, setNames] = useState([])
   let location = useLocation()
   let shipDetails = location.state.shipName
   const pilotUrls = location.state.shipName.pilots
 
-  console.log('get', getPilots(pilotUrls))
+  useEffect(() => {
+    const retrieve = async() => {
+      const pilots = await getPilots(pilotUrls)
+      setNames(pilots)
+    }  
+    retrieve()
+  }, [pilotUrls])
 
   return(
     <>
@@ -18,7 +26,7 @@ const ShipDetails = () => {
           <p>MODEL: {shipDetails.model}</p>
           {pilotUrls.length ?
           <div>
-            {getPilots(pilotUrls).map(pilotName => {
+            {names.map(pilotName => {
               return <div>{pilotName}</div>
             })}
           </div>
